@@ -1,0 +1,16 @@
+sudo: required
+
+language: generic
+
+services: 
+  - docker
+
+before_install:
+  - echo "start create image"
+  - docker build -t ahnsj21/docker-react-app -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true ahnsj21/docker-react-app npm test -- --coverage
+
+after_success:
+  - echo "test success"
